@@ -1,28 +1,30 @@
 <script type="text/x-red" data-template-name="xiaomi-smart-home">
-    	<div class="form-row">
-    	    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-    	    <input type="text" id="node-input-name" placeholder="Name">
-    	</div>
-      <div class="form-row">
-      <label for="node-input-sid"><i class="fa fa-key"></i> Sid</label>
-      <input type="text" id="node-input-sid" placeholder="Sid">
-          <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
-          <input type="text" id="node-input-password" placeholder="Password">
-      </div>
-    	<div style="margin: 0">
-    		<input type="checkbox" id="node-input-gateway" placeholder="gateway" value="Gateway">Gateway<br>
-    		<input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Wireless switch<br>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-sid"><i class="fa fa-key"></i> Sid</label>
+        <input type="text" id="node-input-sid" placeholder="Sid">
+        <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
+        <input type="text" id="node-input-password" placeholder="Password">
+    </div>
+    <div style="margin: 0">
+        <input type="checkbox" id="node-input-gateway" placeholder="gateway" value="Gateway">Gateway<br>
+        <input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Wireless switch<br>
         <input type="checkbox" id="node-input-86sw1" placeholder="86sw1" value="86sw1">Wireless switch(One Button)<br>
         <input type="checkbox" id="node-input-86sw2" placeholder="86sw2" value="86sw2">Wrieless switch(Two button)<br>
-    		<input type="checkbox" id="node-input-cube" placeholder="cube" value="Cube">Cube<br>
-    		<input type="checkbox" id="node-input-sensor_ht" placeholder="sensor_ht" value="Sensor_ht">Sensor_ht<br>
+        <input type="checkbox" id="node-input-cube" placeholder="cube" value="Cube">Cube<br>
+        <input type="checkbox" id="node-input-sensor_ht" placeholder="sensor_ht" value="Sensor_ht">Sensor_ht<br>
         <input type="checkbox" id="node-input-motion" placeholder="motion" value="motion">Motion<br>
         <input type="checkbox" id="node-input-sensor_motion_aq2" placeholder="sensor_motion_aq2" value="sensor_motion_aq2">Motion aquara<br>
-    		<input type="checkbox" id="node-input-magnet" placeholder="magnet" value="Magnet">Magnet<br>
+        <input type="checkbox" id="node-input-magnet" placeholder="magnet" value="Magnet">Magnet<br>
         <input type="checkbox" id="node-input-plug" placeholder="plug" value="plug">Plug<br>
         <input type="checkbox" id="node-input-86plug" placeholder="86plug" value="86plug">Embeddable plug<br>
         <input type="checkbox" id="node-input-natgas" placeholder="natgas" value="natgas">Gas sensor<br>
-    	</div>
+    </div>
+
+
 </script>
 <script type="text/x-red" data-help-name="xiaomi-smart-home">
 <h3>Module for write/read data from mi home devices</h3>
@@ -67,31 +69,35 @@ Password - your key whith mobile application</p>
   payload - The data that came with the device(may be not the correct types) <br>
   model - The name device
 </p>
+
+
 </script>
 <script type="text/javascript">
-	RED.nodes.registerType('xiaomi-smart-home', {
-		category: 'input',
-		color: "#329D27",
-		defaults: {
-			name:                {value:""},
-      password:            {value:""},
-      sid:                 {value: ""},
-			gateway:             {value: true},
-			switch:              {value: true},
-			cube:                {value: true},
-			sensor_ht:           {value: true},
-      motion:              {value: true},
-      'sensor_motion_aq2': {value: true},
-			magnet:              {value: true},
-      plug:                {value: true},
-      '86plug':            {value: true},
-      '86sw1':             {value: true},
-      '86sw2':             {value: true},
-      natgas:              {value: true},
-		},
-		inputs: 1,
-		outputs: 1,
-		icon: "bridge.png",
-		label: function() {return this.name||"xiaomi-smart-home"},
-	});
+    RED.nodes.registerType('xiaomi-smart-home', {
+        category: 'input',
+        color: "#329D27",
+        defaults: {
+            name: {value: ""},
+            password: {value: ""},
+            sid: {value: ""},
+            gateway: {value: true},
+            switch: {value: true},
+            cube: {value: true},
+            sensor_ht: {value: true},
+            motion: {value: true},
+            'sensor_motion_aq2': {value: true},
+            magnet: {value: true},
+            plug: {value: true},
+            '86plug': {value: true},
+            '86sw1': {value: true},
+            '86sw2': {value: true},
+            natgas: {value: true},
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "bridge.png",
+        label: function () {
+            return this.name || "xiaomi-smart-home"
+        },
+    });
 </script>

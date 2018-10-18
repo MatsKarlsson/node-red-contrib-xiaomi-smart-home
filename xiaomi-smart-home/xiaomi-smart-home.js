@@ -5,9 +5,7 @@ module.exports = function(RED) {
 		let node = this;
 
 		function isSocketForSluice() {
-			if(global.socketForSluice != null || global.socketForSluice != undefined)
-				return true;
-			return false;
+			return global.socketForSluice != null || global.socketForSluice !== undefined;
 		}
 
 		if(!isSocketForSluice()) global.socketForSluice = new Socket();
@@ -30,4 +28,4 @@ module.exports = function(RED) {
 	}
 
 	RED.nodes.registerType("xiaomi-smart-home", smartHomeNode);
-}
+};
