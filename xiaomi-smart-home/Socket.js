@@ -70,9 +70,9 @@ class Socket {
     //TODO: Проверка изменение статуса можно ли начать посылать команды.
     checkEncryptDataMessage(msg) {
         if (!this.isListenCommand) return;
-        if (msg.cmd == 'get_id_list_ack' && msg.sid == this.sid) {
+        if (msg.cmd === 'get_id_list_ack' && msg.sid === this.sid) {
             this.encrypt(msg.token);
-        } else if (msg.cmd == 'heartbeat' && msg.model == 'gateway' && msg.sid == this.sid) {
+        } else if (msg.cmd === 'heartbeat' && msg.model === 'gateway' && msg.sid === this.sid) {
             this.encrypt(msg.token);
         }
     }
@@ -99,12 +99,12 @@ class Socket {
     sendCommand() {
         let data = JSON.parse(this.data);
         let command = null;
-        if (typeof data.value == "string")
-            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343 : 4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
-        else if (typeof data.value == 'object') {
-            var _res = {};
-            for (var i = 0; i < data.value.length; i++) {
-                if (i == 0) {
+        if (typeof data.value === "string")
+            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model === 'gateway' ? 4343 : 4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
+        else if (typeof data.value === 'object') {
+            let _res = {};
+            for (let i = 0; i < data.value.length; i++) {
+                if (i === 0) {
                     let _command = data.command[i];
                     let _valueCommand = data.value[i]
                     eval("_res = Object.assign({}, {" + _command + ":" + _valueCommand + "})");
@@ -115,9 +115,9 @@ class Socket {
                 }
             }
             _res = Object.assign(_res, {key: this.key});
-            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343 : 4343}, "data": ${JSON.stringify(_res)}}`;
+            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model === 'gateway' ? 4343 : 4343}, "data": ${JSON.stringify(_res)}}`;
         } else {
-            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343 : 4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
+            command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model === 'gateway' ? 4343 : 4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
         }
         this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {
             if (err) throw err;
@@ -130,21 +130,24 @@ class Socket {
     }
 
     checkMessage(data) {
+        //TODO: Loop never loops, returns after first iteration, how should we handle it?
         for (let key in data) {
-            if (key == 'status')
+            if (key === 'status') {
                 return data[key].toString();
+            }
             return data;
         }
     }
 
     // TODO: Проверка флаг в настройках плагина
     checkSendCurrentDevice(model, modelsNode) {
-        for (var key in modelsNode)
-            if (key == model && modelsNode[key] == true)
+        for (const key in modelsNode) {
+            if (key === model && modelsNode[key] === true) {
                 return true;
-        if (model == "sensor_motion.aq2" && modelsNode['sensor_motion_aq2'] == true)
-            return true;
-        return false;
+            }
+        }
+
+        return model === "sensor_motion.aq2" && modelsNode['sensor_motion_aq2'] === true;
     }
 }
 
